@@ -1,23 +1,19 @@
-// Matrix.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
 #pragma once
 #include <vector>
 #include <fstream>
 #include <string>
 namespace lama {
     long long gcd(long long a, long long b);
-    void start_write_in_file(std::string outfile_path);
-    void stop_write_in_file();
     class fraction {
     public:
-        //Числитель
+        //Р§РёСЃР»РёС‚РµР»СЊ
         long long num;
-        //Знаменатель
+        //Р—РЅР°РјРµРЅР°С‚РµР»СЊ
         long long dem;
         bool sign;
         fraction(long long a, long long b);
         fraction(long long a);
-        void print(bool f = 0) const;
+        void print(bool f = 0, std::ostream& out = std::cout) const;
         fraction operator + (fraction p1) const;
         fraction operator - (fraction p1) const;
         fraction operator * (fraction p1) const;
@@ -27,44 +23,44 @@ namespace lama {
     class matrix {
     public:
         std::vector< std::vector<fraction>> A;
-        //Количество строк
+        //РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє
         int n;
-        //Количество столбцов
+        //РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РѕР»Р±С†РѕРІ
         int m;
 
         matrix operator = (matrix p1);
         matrix operator + (matrix p1);
         matrix operator * (matrix p1);
-        //Матрица rows_count на cols_count заполненная filler
+        //РњР°С‚СЂРёС†Р° rows_count РЅР° cols_count Р·Р°РїРѕР»РЅРµРЅРЅР°СЏ filler
         matrix(int rows_count, int cols_count, fraction filler);
-        //Единичная матрица size на size
+        //Р•РґРёРЅРёС‡РЅР°СЏ РјР°С‚СЂРёС†Р° size РЅР° size
         matrix(int size);
-        //Матрица rows_count на cols_count заполненная filler
+        //РњР°С‚СЂРёС†Р° rows_count РЅР° cols_count Р·Р°РїРѕР»РЅРµРЅРЅР°СЏ filler
         matrix(int rows_count, int cols_count, long long filler);
-        //Матрица из двумерного вектора a
+        //РњР°С‚СЂРёС†Р° РёР· РґРІСѓРјРµСЂРЅРѕРіРѕ РІРµРєС‚РѕСЂР° a
         matrix(std::vector<std::vector<fraction>> a);
         void swap_rows(int i, int j);
         void swap_cols(int i, int j);
-        //Возвращает транспорованную матрицу
+        //Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚СЂР°РЅСЃРїРѕСЂРѕРІР°РЅРЅСѓСЋ РјР°С‚СЂРёС†Сѓ
         matrix transpose();
 
-        //mode = 0 - просто вывод, mode = 1 - вывод матрицы для латеха с круглыми скобками, mode = 2 - вывод матрицы для латеха со скобками определителя
-        //f_mode = 0 - дроби в виде x/y, f_mode = 1 - \frac{x}{y}
-        void print(int mode = 0,int f_mode=0) const;
-        //verbose = 0 - не выводить ход решения, verbose = 1 - отображать каждый шаг хода решения.
-        fraction det(int verbose = 0) const;
-        //verbose = 0 - не выводить ход решения, verbose = 1 - отображать каждый шаг хода решения, verbose = 2 - отображать только основные шаги хода решения
-        matrix inverse(int verbose = 0) const;
-        //Возвращает минор исходной матрицы состоящий из строк и столбцов с номерами в rows и cols
+        //mode = 0 - РїСЂРѕСЃС‚Рѕ РІС‹РІРѕРґ, mode = 1 - РІС‹РІРѕРґ РјР°С‚СЂРёС†С‹ РґР»СЏ Р»Р°С‚РµС…Р° СЃ РєСЂСѓРіР»С‹РјРё СЃРєРѕР±РєР°РјРё, mode = 2 - РІС‹РІРѕРґ РјР°С‚СЂРёС†С‹ РґР»СЏ Р»Р°С‚РµС…Р° СЃРѕ СЃРєРѕР±РєР°РјРё РѕРїСЂРµРґРµР»РёС‚РµР»СЏ
+        //f_mode = 0 - РґСЂРѕР±Рё РІ РІРёРґРµ x/y, f_mode = 1 - \frac{x}{y}
+        void print(int mode = 0, int f_mode = 0, std::ostream& out = std::cout) const;
+        //verbose = 0 - РЅРµ РІС‹РІРѕРґРёС‚СЊ С…РѕРґ СЂРµС€РµРЅРёСЏ, verbose = 1 - РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РєР°Р¶РґС‹Р№ С€Р°Рі С…РѕРґР° СЂРµС€РµРЅРёСЏ.
+        fraction det(int verbose = 0, std::ostream& out = std::cout) const;
+        //verbose = 0 - РЅРµ РІС‹РІРѕРґРёС‚СЊ С…РѕРґ СЂРµС€РµРЅРёСЏ, verbose = 1 - РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РєР°Р¶РґС‹Р№ С€Р°Рі С…РѕРґР° СЂРµС€РµРЅРёСЏ, verbose = 2 - РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ С‚РѕР»СЊРєРѕ РѕСЃРЅРѕРІРЅС‹Рµ С€Р°РіРё С…РѕРґР° СЂРµС€РµРЅРёСЏ
+        matrix inverse(int verbose = 0, std::ostream& out = std::cout) const;
+        //Р’РѕР·РІСЂР°С‰Р°РµС‚ РјРёРЅРѕСЂ РёСЃС…РѕРґРЅРѕР№ РјР°С‚СЂРёС†С‹ СЃРѕСЃС‚РѕСЏС‰РёР№ РёР· СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ СЃ РЅРѕРјРµСЂР°РјРё РІ rows Рё cols
         matrix minor(std::vector<int> rows, std::vector<int> cols) const;
-        //Возвращает минор исходной матрицы состоящий из строк и столбцов , в чьих индексах стоит True в rows и cols
+        //Р’РѕР·РІСЂР°С‰Р°РµС‚ РјРёРЅРѕСЂ РёСЃС…РѕРґРЅРѕР№ РјР°С‚СЂРёС†С‹ СЃРѕСЃС‚РѕСЏС‰РёР№ РёР· СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ , РІ С‡СЊРёС… РёРЅРґРµРєСЃР°С… СЃС‚РѕРёС‚ True РІ rows Рё cols
         matrix minor(std::vector<bool> rows, std::vector<bool> cols) const;
-        //verbose = 0 - не выводить ход решения, verbose = 1 - выводить каждый шаг хода решения, 2 - отображать только основные шаги.
-        int rank(int verbose = 0) const;
+        //verbose = 0 - РЅРµ РІС‹РІРѕРґРёС‚СЊ С…РѕРґ СЂРµС€РµРЅРёСЏ, verbose = 1 - РІС‹РІРѕРґРёС‚СЊ РєР°Р¶РґС‹Р№ С€Р°Рі С…РѕРґР° СЂРµС€РµРЅРёСЏ, 2 - РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ С‚РѕР»СЊРєРѕ РѕСЃРЅРѕРІРЅС‹Рµ С€Р°РіРё.
+        int rank(int verbose = 0, std::ostream& out = std::cout) const;
     };
 
-fraction operator + (fraction c1, long long c2);
-fraction operator + (long long c1, fraction c2);
-//verbose = 0 - не выводить ход решения, verbose = 1 - отображать каждый шаг хода решения, verbose = 2 - отображать только основные шаги хода решения
-matrix solve_solae(matrix K, matrix Y,int verbose = 0);
+    fraction operator + (fraction c1, long long c2);
+    fraction operator + (long long c1, fraction c2);
+    //verbose = 0 - РЅРµ РІС‹РІРѕРґРёС‚СЊ С…РѕРґ СЂРµС€РµРЅРёСЏ, verbose = 1 - РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РєР°Р¶РґС‹Р№ С€Р°Рі С…РѕРґР° СЂРµС€РµРЅРёСЏ, verbose = 2 - РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ С‚РѕР»СЊРєРѕ РѕСЃРЅРѕРІРЅС‹Рµ С€Р°РіРё С…РѕРґР° СЂРµС€РµРЅРёСЏ
+    matrix solve_solae(matrix K, matrix Y, int verbose = 0, std::ostream& out = std::cout);
 };
