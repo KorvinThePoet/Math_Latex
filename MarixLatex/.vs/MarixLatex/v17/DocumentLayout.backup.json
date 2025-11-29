@@ -1,0 +1,93 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4D8C28EF-5457-46B4-A59F-96A7CA14A7D6}|MarixLatex\\MarixLatex.vcxproj|C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\lama.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4D8C28EF-5457-46B4-A59F-96A7CA14A7D6}|MarixLatex\\MarixLatex.vcxproj|solutionrelative:MarixLatex\\lama.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D8C28EF-5457-46B4-A59F-96A7CA14A7D6}|MarixLatex\\MarixLatex.vcxproj|C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\MarixLatex.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4D8C28EF-5457-46B4-A59F-96A7CA14A7D6}|MarixLatex\\MarixLatex.vcxproj|solutionrelative:MarixLatex\\MarixLatex.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D8C28EF-5457-46B4-A59F-96A7CA14A7D6}|MarixLatex\\MarixLatex.vcxproj|C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\lama.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4D8C28EF-5457-46B4-A59F-96A7CA14A7D6}|MarixLatex\\MarixLatex.vcxproj|solutionrelative:MarixLatex\\lama.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "vector",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
+              "ViewState": "AgIAAHkHAAAAAAAAAAAwwIkHAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-11-25T21:51:14.849Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MarixLatex.cpp",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\MarixLatex.cpp",
+              "RelativeDocumentMoniker": "MarixLatex\\MarixLatex.cpp",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\MarixLatex.cpp",
+              "RelativeToolTip": "MarixLatex\\MarixLatex.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-24T17:15:00.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lama.cpp",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\lama.cpp",
+              "RelativeDocumentMoniker": "MarixLatex\\lama.cpp",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\lama.cpp",
+              "RelativeToolTip": "MarixLatex\\lama.cpp",
+              "ViewState": "AgIAAEsBAAAAAAAAAAAQwAsDAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-24T17:17:52.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "lama.h",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\lama.h",
+              "RelativeDocumentMoniker": "MarixLatex\\lama.h",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\Math_Latex\\MarixLatex\\MarixLatex\\lama.h",
+              "RelativeToolTip": "MarixLatex\\lama.h",
+              "ViewState": "AgIAACQAAAAAAAAAAAAswDMAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-24T17:17:59.531Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
