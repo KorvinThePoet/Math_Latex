@@ -57,7 +57,7 @@ fraction::fraction(ll a) {
 
 }
 
-void fraction::print(bool f = 0) const 
+void fraction::print(bool f) const 
 {
 
     if (num == 0) {
@@ -170,11 +170,11 @@ matrix matrix::operator * (matrix p1)
 
 }
 
-matrix::matrix(int n1, int m1, fraction filler) 
+matrix::matrix(int rows_count, int cols_count, fraction filler)
 {
 
-    n = n1;
-    m = m1;
+    n = rows_count;
+    m = cols_count;
     for (int i = 0; i < n; i++) {
         A.push_back({});
         for (int j = 0; j < m; j++) {
@@ -184,22 +184,22 @@ matrix::matrix(int n1, int m1, fraction filler)
 
 }
 
-matrix::matrix(int n1) 
+matrix::matrix(int size)
 {
 
-    matrix a(n1, n1, 0);
-    for (int i = 0; i < n1; i++)
+    matrix a(size, size, 0);
+    for (int i = 0; i < size; i++)
         a.A[i][i] = 1;
     A = a.A;
-    n = n1;
-    m = n1;
+    n = size;
+    m = size;
 
 }
-matrix::matrix(int n1, int m1, ll filler) 
+matrix::matrix(int rows_count, int cols_count, ll filler)
 {
 
-    n = n1;
-    m = m1;
+    n = rows_count;
+    m = cols_count;
     for (int i = 0; i < n; i++) {
         A.push_back({});
         for (int j = 0; j < m; j++) {
@@ -227,7 +227,7 @@ matrix::matrix(std::vector<std::vector<fraction>> a)
     A = a;
 
 }
-void matrix::swap_lines(int i, int j) 
+void matrix::swap_rows(int i, int j) 
 {
 
     if ((i < 0) || (j < 0) || (i >= n) || (j >= n))
@@ -264,74 +264,90 @@ matrix matrix::transpose()
 
 }
 
-void matrix::print(int mode = 0) const 
+void matrix::print(int mode,int f_mode) const 
 {
 
     if (mode)
     {
         if (mode == 2)
         {
-        std::cout << "\\begin{vmatrix}\n";
-        outf << "\\begin{vmatrix}\n";
+            std::cout << "\\begin{vmatrix}\n";
+            outf << "\\begin{vmatrix}\n";
         }
         else
         {
-        std::cout << "\\begin{pmatrix}\n";
-        outf << "\\begin{pmatrix}\n";
+            std::cout << "\\begin{pmatrix}\n";
+            outf << "\\begin{pmatrix}\n";
         }
         for (int i = 0; i < n; i++) {
-        A[i][0].print();
-        for (int j = 1; j < m; j++) {
-            std::cout << " & ";
-            outf << " & ";
-            A[i][j].print();
-        }
-        std::cout << "\\\\ \n";
-        outf << "\\\\ \n";
+            if (f_mode == 0) {
+                A[i][0].print();
+            }
+            else {
+                A[i][0].print(1);
+            }
+            for (int j = 1; j < m; j++) {
+                std::cout << " & ";
+                outf << " & ";
+                if (f_mode == 0){
+                    A[i][j].print();
+                } 
+                else {
+                    A[i][j].print(1);
+                }
+
+            }
+            std::cout << "\\\\ \n";
+            outf << "\\\\ \n";
         }
         if (mode == 2)
         {
-        std::cout << "\\end{vmatrix}\n";
-        outf << "\\end{vmatrix}\n";
+            std::cout << "\\end{vmatrix}\n";
+            outf << "\\end{vmatrix}\n";
         }
         else
         {
-        std::cout << "\\end{pmatrix}\n";
-        outf << "\\end{pmatrix}\n";
+            std::cout << "\\end{pmatrix}\n";
+            outf << "\\end{pmatrix}\n";
         }
     }
     else
         for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++)
-        {
-            A[i][j].print();
-            std::cout << " ";
-            outf << " ";
-        }
-        std::cout << '\n';
-        outf << '\n';
+            for (int j = 0; j < m; j++)
+            {
+                if (f_mode == 0) {
+                    A[i][j].print();
+                }
+                else {
+                    A[i][j].print(1);
+                }
+                std::cout << " ";
+                outf << " ";
+            }
+            std::cout << '\n';
+            outf << '\n';
         }
 
 }
-fraction matrix::det(int printmode = 0) const 
+fraction matrix::det(int verbose) const
 {
 
     if (n != m)
         throw "Нельзя найти определитель прямоугольной матрицы";
-    if (!((0 <= printmode) || (printmode <= 1)))
+    if (!((0 <= verbose) || (verbose <= 1)))
         throw "Неизвестный способ вывода хода решения";
     matrix a(A);
     fraction d1(1);
     bool sign = false;
-    if (printmode==1) { a.print(2); std::cout << "=\n"; outf << '\n'; }
+    if (verbose ==1) { a.print(2); std::cout << "=\n"; outf << '\n'; }
 
     for (int i = 0; i < n - 1; i++) {
         if (a.A[i][i].num == 0) { //Три if пытаются сделать, чтобы диагональный элемент !=0
         for (int q = i; q < n; q++)
             if (a.A[q][i].num != 0) {
-            a.swap_lines(i, q);
+            a.swap_rows(i, q);
             sign = sign ^ (((q - i) % 2) == 1);
-            if (printmode==1) {
+            if (verbose ==1) {
                 if (sign) {
                 std::cout << "-\n";
                 outf << "-\n";
@@ -348,7 +364,7 @@ fraction matrix::det(int printmode = 0) const
             if (a.A[i][q].num != 0) {
             a.swap_cols(i, q);
             sign = sign ^ (((q - i) % 2) == 0);
-            if (printmode==1) {
+            if (verbose ==1) {
                 if (sign) {
                 std::cout << "-\n";
                 outf << "-\n";
@@ -361,7 +377,7 @@ fraction matrix::det(int printmode = 0) const
             }
         }
         if (a.A[i][i].num == 0) {
-        if (printmode==1) {
+        if (verbose ==1) {
             outf << "0"; 
             std::cout << "0";
         }
@@ -373,7 +389,7 @@ fraction matrix::det(int printmode = 0) const
             a.A[q][j] = a.A[q][j] - d1 * a.A[i][j];
         }
         //if (verbose) { if (sign) std::cout << "-\n"; a.print(2); std::cout << "=\n"; }
-        if (printmode) {
+        if (verbose) {
         if (sign) {
             std::cout << "-\n";
             outf << "-\n";
@@ -388,22 +404,22 @@ fraction matrix::det(int printmode = 0) const
         res = res * a.A[i][i];
     if (sign) 
         res = res * -1;
-    if (printmode) 
+    if (verbose!=0)
         res.print(1);
 
     return res;
 
 }
     
-matrix matrix::inverse(int printmode = 0) const {
+matrix matrix::inverse(int verbose) const {
     if (n != m) 
         throw "Нельзя найти обратную прямоугольную матрицу";
-    if (!((0 <= printmode) || (printmode <= 2)))
+    if (!((0 <= verbose) || (verbose <= 2)))
         throw "Неизвестный способ вывода хода решения";
     matrix a(A);
     matrix res(n);
     fraction d1(1);
-    if (printmode!=0) 
+    if (verbose !=0)
     {
         a.print(1);
         std::cout << "^{-1}\n: \\\\ \n";
@@ -423,9 +439,9 @@ matrix matrix::inverse(int printmode = 0) const {
         {
             for (int q = i; q < n; q++)
                 if (a.A[q][i].num != 0) {
-                    a.swap_lines(i, q);
-                    res.swap_lines(i, q);
-                    if (printmode == 1) {
+                    a.swap_rows(i, q);
+                    res.swap_rows(i, q);
+                    if (verbose == 1) {
                         a.print(1);
                         std::cout << "|";
                         outf << "|";
@@ -453,7 +469,7 @@ matrix matrix::inverse(int printmode = 0) const {
                 res.A[q][j] = res.A[q][j] - res.A[i][j] * d1;
             }
         }
-        if (printmode == 1) 
+        if (verbose == 1)
         {
             a.print(1);
             std::cout << "|";
@@ -464,7 +480,7 @@ matrix matrix::inverse(int printmode = 0) const {
         }
     } //Конец прямого хода
 
-    if (printmode == 2) 
+    if (verbose == 2)
     {
         a.print(1);
         std::cout << "|";
@@ -485,7 +501,7 @@ matrix matrix::inverse(int printmode = 0) const {
                 a.A[q][j] = a.A[q][j] - a.A[i][j] * d1;
                 res.A[q][j] = res.A[q][j] - res.A[i][j] * d1;
             }
-            if ((printmode == 1)) 
+            if ((verbose == 1))
             {
                 a.print(1);
                 std::cout << "|";
@@ -500,50 +516,50 @@ matrix matrix::inverse(int printmode = 0) const {
         }
     } //Конец обратного хода
 
-    if (printmode == 2) 
+    if (verbose == 2)
     {
         a.print(1);
         std::cout << "|";
         outf << "|";
         res.print(1);
     }
-    if (printmode != 0)
+    if (verbose != 0)
         std::cout << ": \\\\ \n";
     outf << ": \\\\ \n";
     res.print(1);
     return res;
     }
-matrix matrix::minor(std::vector<int> lines, std::vector<int> cols) const {
-    matrix res(lines.size(), cols.size(), 0);
+matrix matrix::minor(std::vector<int> rows, std::vector<int> cols) const {
+    matrix res(rows.size(), cols.size(), 0);
     for (int i = 0; i < res.n; i++) {
-        if ((lines[i] < 0) || (lines[i] >= n))
+        if ((rows[i] < 0) || (rows[i] >= n))
         throw "Выход за пределы матрицы";
         for (int j = 0; j < res.m; j++)
         {
         if ((cols[j] < 0) || (cols[j] >= m))
             throw "Выход за пределы матрицы";
-        res.A[i][j] = A[lines[i]][cols[j]];
+        res.A[i][j] = A[rows[i]][cols[j]];
         }
     }
     return res;
     }
-matrix matrix::minor(std::vector<bool> lines, std::vector<bool> cols) const {
-    if ((lines.size() != n) || (cols.size() != m))
+matrix matrix::minor(std::vector<bool> rows, std::vector<bool> cols) const {
+    if ((rows.size() != n) || (cols.size() != m))
         throw "Неправильно задан минор";
     std::vector<int> c, l;
     for (int i = 0; i < n; i++)
-        if (lines[i])
+        if (rows[i])
         l.push_back(i);
     for (int i = 0; i < m; i++)
         if (cols[i])
         c.push_back(i);
     return minor(l, c);
     }
-int matrix::rank(bool verbose = 0) const {
+int matrix::rank(int verbose) const {
     std::vector<bool> lines(n);
     std::vector<bool> cols(m);
     bool b1 = false;
-    if (verbose) {
+    if (verbose!=0) {
         std::cout << "rank ";
         outf << "rank ";
         print(1);
@@ -559,7 +575,7 @@ int matrix::rank(bool verbose = 0) const {
             lines[i] = 1;
             cols[i] = 1;
             b1 = true;
-            if (verbose) {
+            if (verbose != 0) {
             std::cout << "\\Delta_{" << i + 1 << "|" << j + 1 << "}=";
             outf << "\\Delta_{" << i + 1 << "|" << j + 1 << "}=";
             A[i][j].print(1);
@@ -584,67 +600,72 @@ int matrix::rank(bool verbose = 0) const {
             break;
         for (int j = 0; j < m; j++)
             if (!(cols[j] || lines[i])) { //Не включено в минор
-            lines[i] = 1;
-            cols[j] = 1;
-            de = minor(lines, cols).det(0);
-            if (verbose) {
-                std::cout << "\\Delta_{";
-                outf << "\\Delta_{";
-                l = {};
-                c = {};
-                for (int di = 0; di < n; di++)
-                if (lines[di])
-                    l.push_back(di);
-                for (int di = 0; di < m; di++)
-                if (cols[di])
-                    c.push_back(di);
-                for (int di = 0; di < (int)l.size(); di++) {
-                std::cout << l[di] + 1;
-                outf << l[di] + 1;
-                if (di < ((int)l.size() - 1)) {
-                    outf << ",";
-                    std::cout << ",";
+                lines[i] = 1;
+                cols[j] = 1;
+                if (verbose != 0) {
+                    if ((verbose == 1)&&(q>3)){
+                        de = minor(lines, cols).det(1);
+                        std::cout << "\\\\ \n";
+                    }
+                    else {
+                        de = minor(lines, cols).det(0);
+                    }
                 }
+                if (verbose != 0) {
+                    std::cout << "\\Delta_{";
+                    outf << "\\Delta_{";
+                    l = {};
+                    c = {};
+                    for (int di = 0; di < n; di++){
+                        if (lines[di])
+                            l.push_back(di);
+                    }
+                    for (int di = 0; di < m; di++){
+                        if (cols[di])
+                            c.push_back(di);
+                    }
+                    for (int di = 0; di < (int)l.size(); di++) {
+                        std::cout << l[di] + 1;
+                        if (di < ((int)l.size() - 1)) {
+                            std::cout << ",";
+                        }
+                    }
+                    std::cout << "|";
+                    for (int di = 0; di < (int)c.size(); di++) {
+                        std::cout << c[di] + 1;
+                        if (di < ((int)c.size() - 1)) {
+                            std::cout << ",";
+                        }
+                    }
+                    std::cout << "} = ";
+                    outf << "} = ";
+                    de.print(1);
+                    std::cout << "; ";
+                    outf << "; ";
                 }
-                std::cout << "|";
-                outf << "|";
-                for (int di = 0; di < (int)c.size(); di++) {
-                std::cout << c[di] + 1;
-                if (di < ((int)c.size() - 1)) {
-                    outf << ",";
-                    std::cout << ",";
+                if (minor(lines, cols).det(0).num != 0)
+                {
+                    b1 = 1;
+                    if (verbose != 0) {
+                        std::cout << "\\\\ \n";
+                    }
+                    break;
                 }
-                }
-                std::cout << "} = ";
-                outf << "} = ";
-                de.print(1);
-                std::cout << "; ";
-                outf << "; ";
-            }
-            if (minor(lines, cols).det(0).num != 0)
-            {
-                b1 = 1;
-                if (verbose) {
-                std::cout << "\\\\ \n";
-                outf << "\\\\ \n";
-                }
-                break;
-            }
-            lines[i] = 0;
-            cols[j] = 0;
+                lines[i] = 0;
+                cols[j] = 0;
             }
         }
 
         if (!b1)
         {
-        if (verbose) {
+        if (verbose != 0) {
             std::cout << "\\\\\nrank = " << q - 1;
             outf << "\\\\\nrank = " << q - 1;
         }
         return q - 1;
         }
     }
-    if (verbose) {
+    if (verbose != 0) {
         std::cout << "rank = " << k;
         outf << "rank = " << k;
     }
@@ -654,4 +675,111 @@ int matrix::rank(bool verbose = 0) const {
 fraction operator + (fraction c1, ll c2) { return c1 + fraction(c2); }
 fraction operator + (ll c1, fraction c2) { return c2 + fraction(c1); }
 
+matrix lama::solve_solae(matrix K, matrix Y, int verbose) 
+{
+
+    if ((Y.m != 1) || (Y.n != K.n)) {
+        throw "Неверно задана система";
+    }
+    
+    bool fl = false;
+    fraction tmp(0);
+    int nowcol = 0;
+    int nowrow = 0;
+    matrix R(K.n, K.m + 1, -1);
+
+    for (int i = 0; i < K.n; ++i) {
+        for (int j = 0; j < K.m; ++j) {
+            R.A[i][j] = K.A[i][j];
+        }
+        R.A[i][R.m-1] = Y.A[i][0];
+    }
+    if (verbose != 0) {
+        std::cout << "$\\bar A$ =";
+        R.print(1, 1);
+        std::cout << ": \\\\ \n";
+
+    }
+    if (verbose != 0) {
+        R.print(1, 1);
+    }
+    while ((nowrow < K.n) && (nowcol < K.m)) { //Прямой ход начало
+        if (R.A[nowrow][nowcol].num==0){
+            fl = false;
+            for (int i = nowrow; i < K.n; ++i) {
+                if (R.A[i][nowcol].num != 0) {
+                    fl = true;
+                    R.swap_rows(i, nowrow);
+                    break;
+                }
+            }
+            if (!fl) {
+                ++nowcol;
+            }
+        }
+        else {  
+            for (int i = nowrow + 1; i < R.n; ++i) {
+                tmp = R.A[i][nowcol]/R.A[nowrow][nowcol];
+                for (int j = nowcol; j < R.m; ++j) {
+                    R.A[i][j] = R.A[i][j] - R.A[nowrow][j] * tmp;
+                }
+            }
+            tmp = R.A[nowrow][nowcol];
+            for (int i = 0; i < R.m; ++i) {
+                R.A[nowrow][i] = R.A[nowrow][i] / tmp;
+            }
+            ++nowcol;
+            ++nowrow;
+        }
+        if (verbose == 1) {
+            std::cout << "\\sim \n";
+            R.print(1, 1);
+        }
+    } //Прямой ход конец
+    if (verbose == 2) {
+        std::cout << "\\sim \n";
+        R.print(1, 1);
+    }
+    fl = false;
+    nowcol = 0;
+    nowrow = 0;
+    /*for (int i = K.n - 1; i >= 0; --i) {
+        fl = false;
+        for (int j = 0; j < K.m; ++j) {
+            if (R.A[i][j].num != 0) {
+                fl = true;
+                nowrow = i;
+                nowcol = j;
+                break;
+            }
+        }
+        if (fl) {
+            break;
+        }
+    }*/
+    for (int r = R.n - 1; r > 0; --r) {
+        for (int c = 0; c < R.m; ++c) {
+            if (R.A[r][c].num != 0) {
+                for (int i = r-1; i >= 0; --i) {
+                    tmp = R.A[i][c];
+                    for (int j = c; j < R.m; ++j) {
+                        //R.print(1);
+                        R.A[i][j] = R.A[i][j] - tmp*R.A[r][j];
+                    }
+                }
+                break;
+            }
+        }
+        if (verbose == 1) {
+            std::cout << "\\sim \n";
+            R.print(1, 1);
+        }
+    }
+    if (verbose == 2) {
+        std::cout << "\\sim \n";
+        R.print(1, 1);
+    }
+    return R;
+}
+    
 

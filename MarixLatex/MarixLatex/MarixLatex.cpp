@@ -3,8 +3,8 @@
 #include "lama.h"
 int main()
 {
-    std::cout << "Hello World!\n";
-    lama::matrix a(10,10,1);
-    a.print();
-    a.print(1);
+
+    lama::matrix a({ {1,1,1,2} });
+    lama::matrix b(1,1,0);
+    lama::matrix c = lama::solve_solae(a, b,1);
 }
